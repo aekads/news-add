@@ -68,8 +68,9 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 
 
-//    API: Get Latest 12 Right-Side "World News"
-  app.get('/news/world/right', async (req, res) => {
+  
+//    API: Get Latest 12 right-Side "World News"
+app.get('/news/world/right', async (req, res) => {
     try {
       const result = await pool.query(
         `SELECT * FROM news 
@@ -78,18 +79,24 @@ app.post('/upload', upload.single('image'), (req, res) => {
          LIMIT 12`,
         ['World News', 'right']
       );
-      res.json(result.rows);
+  
+      const allNews = result.rows;
+      const firstSix = allNews.slice(0, 4);
+      const nextSix = allNews.slice(6, 8); // Skips the first 6
+  
+      res.json({
+        part1: firstSix,
+        part2: nextSix
+      });
     } catch (err) {
       console.error('DB Error:', err);
       res.status(500).send('Database error');
     }
   });
-  
-
 
 
 //    API: Get Latest 12 Left-Side "World News"
-  app.get('/news/world/left', async (req, res) => {
+app.get('/news/world/left', async (req, res) => {
     try {
       const result = await pool.query(
         `SELECT * FROM news 
@@ -98,14 +105,20 @@ app.post('/upload', upload.single('image'), (req, res) => {
          LIMIT 12`,
         ['World News', 'left']
       );
-      res.json(result.rows);
+  
+      const allNews = result.rows;
+      const firstSix = allNews.slice(0, 6);
+      const nextSix = allNews.slice(6, 12); // Skips the first 6
+  
+      res.json({
+        part1: firstSix,
+        part2: nextSix
+      });
     } catch (err) {
       console.error('DB Error:', err);
       res.status(500).send('Database error');
     }
   });
-  
-
 
 
 
