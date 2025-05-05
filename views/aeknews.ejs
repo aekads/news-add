@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AEK News Layout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1424px;
+            margin: auto;
+            padding: 30px;
+            /* background: #f0f0f0; */
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            margin-bottom: 20px;
+            height: 160px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-top {
+            text-align: center;
+            padding: 10px 0;
+            /* border-bottom: 1px solid #ccc; */
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #004aad;
+        }
+
+        .logo span {
+            color: rgb(80, 79, 79);
+        }
+
+        .header-bottom {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 10px 0;
+        }
+
+        .header-bottom a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            
+        }
+
+        .header-bottom a:hover {
+            color: #2098F4;
+        }
+
+        /* Top white boxes */
+        .top-boxes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .top-boxes .box {
+            flex: 1;
+            width: 250px;
+            height: 95px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .left-grid {
+            flex: 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            min-width: 300px;
+        }
+
+        .right-grid {
+            flex: 1;
+            display: grid;
+            gap: 10px;
+            min-width: 200px;
+        }
+
+        .grid-box {
+            height: 218px;
+            width: 356px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .grid-boxx {
+            height: 110px;
+            width: 122px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            font-size: 32px;
+            height: 218px;
+            /* width: 1322px; */
+            background: #111;
+            color: white;
+            /* text-align: center; */
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .left-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .left-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-bottom {
+                flex-direction: column;
+                align-items: center;
+                justify-content: left;
+                gap: 10px;
+            }
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100;
+        }
+
+        .grid-caption {
+            margin-top: 5px;
+            font-size: 24px;
+            text-align: center;
+            
+        }
+
+
+        .Cricket-score {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center
+        }
+
+        .World-News {
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .nav-link{
+            font-size: 16px;
+        }
+
+        .grid-itemx {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* space between text and box */
+            margin-bottom: 10px;
+            margin-left: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-itemx {
+                margin-left: 0px;
+            }
+        }
+
+
+        .grid-captionx {
+            font-size: 16px;
+            width: 100px;
+            /* you can adjust this */
+        }
+
+        .section-header {
+            display: flex;
+            font-size: 16px;
+            justify-content: flex-end;
+            align-items: center;
+            /* gap: 10px; */
+            margin-bottom: 10px;
+        }
+
+        .section-header .line {
+            flex: 1;
+            height: 1px;
+            background-color: #999;
+            /* margin: 0 10px; */
+            max-width: 50px;
+            /* Controls line length */
+        }
+
+        .view-more {
+            padding: 4px;
+        }
+
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-bottom {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                background: white;
+                padding: 10px;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .header-bottom.show {
+                display: flex;
+            }
+
+            .header-bottom a {
+                padding: 8px 0;
+                width: 100%;
+                text-align: center;
+                /* border-bottom: 1px solid #ddd; */
+            }
+        }
+
+
+        /* Mobile: 320px */
+        @media (max-width: 320px) {
+            .left-grid {
+                grid-template-columns: 1fr;
+                place-items: center;
+            }
+
+            .grid-box {
+                width: 100%;
+            }
+
+            .grid-item {
+                margin-right: 40px;
+            }
+        }
+
+        /* Mobile: 375px */
+        @media (max-width: 375px) {
+            .left-grid {
+                grid-template-columns: 1fr;
+                place-items: center;
+            }
+
+            .grid-box {
+                width: 100%;
+            }
+        }
+
+        /* Tablet: 768px - 991px */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left-grid {
+                grid-template-columns: repeat(2, 1fr);
+                place-items: center;
+            }
+
+            .right-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                place-items: center;
+                margin-top: 20px;
+            }
+
+            .grid-itemx {
+                margin-left: 0;
+            }
+
+            .section-header.right-grid-heading {
+                grid-column: span 2;
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (width: 1024px) {
+            .grid-box {
+                width: 450px !important;
+            }
+            .header-bottom {
+                gap: 10px;
+            }
+        }
+
+        @media (width: 320px) {
+            .img {
+                width: 260px !important;
+            }
+        }
+
+
+       
+ 
+@media screen and (max-width: 425px) and (min-width: 375px) {
+  .section-header {
+    margin-right: 60px;
+  }
+
+  .right-grid {
+    margin-left: 60px;
+  }
+}
+
+
+
+#navMenu {
+    position: relative;
+    z-index: 999;
+    background-color: white; 
+    width: 100%;
+}
+
+.top-boxes, .grid-box {
+    position: relative;
+    z-index: 1; 
+}
+
+      
+    </style>
+
+<!-- image css -->
+
+<style>
+    @media (max-width: 375px) {
+  .left-grid {
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+  
+  .grid-box {
+    width: 100%;
+  }
+  
+  .grid-item {
+    margin-right: 40px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .img {
+    width: 260px;
+  }
+  }
+  @media (max-width: 320px) {
+  .left-grid {
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+  
+  .grid-box {
+    width: 100%;
+  }
+  
+  .grid-item {
+    margin-right: 40px;
+   
+  }
+  
+  .img {
+    width: 260px;
+  }
+  }
+  @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+  
+  .header-bottom {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header-bottom.show {
+    display: flex;
+  }
+  
+  .grid-itemx {
+    margin-left: 0;
+  }
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .left-grid {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+  }
+  
+  .right-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    margin-top: 20px;
+  }
+  
+  .section-header.right-grid-heading {
+    grid-column: span 2;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .grid-box {
+    width: 450px !important;
+  }
+  }
+  @media (width: 1024px) {
+  .grid-box {
+    width: 450px !important;
+  }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+  .grid-itemx {
+    flex-wrap: wrap;        /* allow wrap if needed */
+    justify-content: space-between;
+    margin-left: 0;
+  }
+  
+  .grid-captionx {
+    flex: 1 1 100px;        /* allow growing/shrinking */
+    max-width: 100px;       /* fixed width, prevents text from overflowing */
+  }
+  
+  .grid-boxx {
+    flex: 0 0 122px;        /* fixed box width */
+  }
+  }
+  
+  /* 6 box image */
+  .grid-box {
+  height: 218px;
+  width: 100%;
+  max-width: 356px;
+  background: white;
+  padding: 0;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  overflow: hidden;
+  }
+  
+  .grid-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  }
+  
+  
+  /* 4 box image */
+  .grid-boxx {
+  height: 110px;
+  width: 100%;
+  max-width: 122px;
+  background: white;
+  padding: 0;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  }
+  
+  .grid-imagex {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  }
+  
+  
+  /* score image (5 box) */
+  .box {
+  width: 100%;
+  /* max-width: 250px; */
+  height: 95px;
+  background: white;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  padding: 0;
+  }
+  
+  .box-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  }
+  
+  
+  
+  </style>
+
+
+
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <img src="https://res.cloudinary.com/dqfnwh89v/image/upload/v1746442673/Aek_News_Logo_3_yywene.png" alt="AEK News" style="height: 88px;width: 303;" class="img">
+            </div>
+
+
+            
+            <!-- Add hamburger icon -->
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+            <!-- Existing menu -->
+            <div class="header-bottom" id="navMenu">
+                <a class="nav-link" href="#">Breaking News</a>
+                <a class="nav-link" href="#">ABCD</a>
+                <a class="nav-link" href="#">Cricket News</a>
+                <a class="nav-link" href="#">Quarter News</a>
+                <a class="nav-link" href="#">Mid News</a>
+                <a class="nav-link" href="#">News Tech</a>
+                <a class="nav-link" href="#">Stock Market</a>
+                <a class="nav-link" href="#">Politics</a>
+                <a class="nav-link" href="#">Business</a>
+                <a class="nav-link" href="#">Tech</a>
+                <a class="nav-link" href="#">Entertainment</a>
+            </div>
+
+
+        </div>
+
+        <!-- Top Boxes -->
+
+        <div class="Cricket-score">Cricket Score</div>
+
+        <div class="top-boxes">
+            <div class="box">
+                <!-- <img src="news.jpg" alt="Top News" class="box-image"> -->
+              </div>
+              
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+
+
+        <div class="World-News">World News</div>
+
+
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Grid -->
+
+            <div class="left-grid" id="leftGrid1"></div>
+
+          
+
+
+            <!-- Right Grid -->
+            <div class="right-grid">
+
+                <div class="section-header right-grid-heading">
+                    <span>Breaking News</span>
+                    <div class="line"></div>
+                    <button class="view-more">View More</button>
+                </div>
+                <div id="rightGridPart1"></div>
+              
+            </div>
+
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Advertising
+        </div>
+
+
+        <!-- second part -->
+
+        <div class="main-content">
+            <!-- Left Grid -->
+            <div class="left-grid" id="leftGrid2"></div>
+
+             <!-- Right Grid -->
+            <div class="right-grid" >
+
+                <div class="section-header right-grid-heading">
+                    <span>Breaking News</span>
+                    <div class="line"></div>
+                    <button class="view-more">View More</button>
+                </div>
+            <div id="rightGridPart2"></div>
+                
+            </div>
+
+           
+          
+
+
+
+        </div>
+
+
+        <div class="footer">
+            Advertising
+        </div>
+
+
+
+        
+
+
+
+    </div>
+
+
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('show');
+        }
+    </script>
+
+<script>
+
+function truncateText(text, maxLength) {
+  if (!text) return '';
+  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+}
+
+    async function loadGrids() {
+      try {
+        // Load LEFT GRID
+        const leftRes = await fetch('https://news-add.onrender.com/news/world/left');
+        const leftData = await leftRes.json();
+  
+        const leftGrid1 = document.getElementById('leftGrid1');
+        const leftGrid2 = document.getElementById('leftGrid2');
+        leftGrid1.innerHTML = '';
+        leftGrid2.innerHTML = '';
+  
+        populateGrid2(leftGrid1, leftData.part1, 'grid-item', 'grid-box', 'grid-image', 'grid-caption');
+        populateGrid2(leftGrid2, leftData.part2, 'grid-item', 'grid-box', 'grid-image', 'grid-caption');
+  
+        // Load RIGHT GRID
+        const rightRes = await fetch('https://news-add.onrender.com/news/world/right');
+        const rightData = await rightRes.json();
+  
+        const rightGrid1 = document.getElementById('rightGridPart1');
+        const rightGrid2 = document.getElementById('rightGridPart2');
+        rightGrid1.innerHTML = '';
+        rightGrid2.innerHTML = '';
+  
+        populateGrid(rightGrid1, rightData.part1, 'grid-itemx', 'grid-boxx', 'grid-image', 'grid-captionx');
+        populateGrid(rightGrid2, rightData.part2, 'grid-itemx', 'grid-boxx', 'grid-image', 'grid-captionx');
+  
+      } catch (err) {
+        console.error('Fetch error:', err);
+      }
+    }
+  
+    function populateGrid(container, items, itemClass, boxClass, imgClass, captionClass) {
+      items.forEach(item => {
+        const gridItem = document.createElement('div');
+        gridItem.className = itemClass;
+        gridItem.innerHTML = `
+           <p class="${captionClass}">${truncateText(item.image_title, 50)}</p>
+          <div class="${boxClass}">
+            <img src="${item.image_url}" alt="News Image" class="${imgClass}">
+          </div>
+       
+        `;
+        container.appendChild(gridItem);
+      });
+
+
+    }
+ 
+
+
+    function populateGrid2(container, items, itemClass, boxClass, imgClass, captionClass) {
+  items.forEach(item => {
+    const gridItem = document.createElement('div');
+    gridItem.className = itemClass;
+    gridItem.innerHTML = `
+      <div class="${boxClass}">
+        <img src="${item.image_url}" alt="News Image" class="${imgClass}">
+      </div>
+      <p class="${captionClass}">${truncateText(item.image_title, 50)}</p>
+    `;
+    container.appendChild(gridItem);
+  });
+}
+  
+  
+    // Load all grids once DOM is ready
+    window.addEventListener('DOMContentLoaded', loadGrids);
+  </script>
+</body>
+
+</html>

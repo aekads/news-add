@@ -35,6 +35,11 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.render('upload');
 });
+
+
+app.get('/Aeknews', (req, res) => {
+    res.render('aeknews');
+  });
 // Enable CORS for all origins (you can restrict it if needed)
 app.use(cors());
 
