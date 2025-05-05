@@ -82,7 +82,7 @@ app.get('/news/world/right', async (req, res) => {
   
       const allNews = result.rows;
       const firstSix = allNews.slice(0, 4);
-      const nextSix = allNews.slice(6, 8); // Skips the first 6
+      const nextSix = allNews.slice(4, 8); // Skips the first 6
   
       res.json({
         part1: firstSix,
