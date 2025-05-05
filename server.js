@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { Pool } = require('pg');
@@ -34,31 +35,80 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.render('upload');
 });
+// Enable CORS for all origins (you can restrict it if needed)
+app.use(cors());
 
+
+// Route to upload news
 app.post('/upload', upload.single('image'), (req, res) => {
-  const stream = cloudinary.uploader.upload_stream({ folder: 'news' }, async (error, result) => {
-    if (error) {
-      console.error('Cloudinary Error:', error);
-      return res.status(500).send('Upload failed');
-    }
+    const stream = cloudinary.uploader.upload_stream({ folder: 'news' }, async (error, result) => {
+      if (error) {
+        console.error('Cloudinary Error:', error);
+        return res.status(500).send('Upload failed');
+      }
+  
+      const { image_title, image_description, news_type, news_side } = req.body;
+      const image_url = result.secure_url;
+  
+      try {
+        // Insert into news table
+        await pool.query(
+          'INSERT INTO news (image_url, image_title, image_description, news_type, news_side) VALUES ($1, $2, $3, $4, $5)',
+          [image_url, image_title, image_description, news_type, news_side]
+        );
+        res.send('News saved successfully!');
+      } catch (err) {
+        console.error('DB Error:', err);
+        res.status(500).send('Database error');
+      }
+    });
+  
+    stream.end(req.file.buffer);
+  });
 
-    const { id, image_title, image_description, news_type, news_side } = req.body;
-    const image_url = result.secure_url;
 
+
+//    API: Get Latest 12 Right-Side "World News"
+  app.get('/news/world/right', async (req, res) => {
     try {
-      await pool.query(
-        'INSERT INTO news (id, image_url, image_title, image_description, news_type, news_side) VALUES ($1, $2, $3, $4, $5, $6)',
-        [id, image_url, image_title, image_description, news_type, news_side]
+      const result = await pool.query(
+        `SELECT * FROM news 
+         WHERE news_type = $1 AND news_side = $2 
+         ORDER BY created_at DESC 
+         LIMIT 12`,
+        ['World News', 'right']
       );
-      res.send('News saved successfully!');
+      res.json(result.rows);
     } catch (err) {
       console.error('DB Error:', err);
       res.status(500).send('Database error');
     }
   });
+  
 
-  stream.end(req.file.buffer);
-});
+
+
+//    API: Get Latest 12 Left-Side "World News"
+  app.get('/news/world/left', async (req, res) => {
+    try {
+      const result = await pool.query(
+        `SELECT * FROM news 
+         WHERE news_type = $1 AND news_side = $2 
+         ORDER BY created_at DESC 
+         LIMIT 12`,
+        ['World News', 'left']
+      );
+      res.json(result.rows);
+    } catch (err) {
+      console.error('DB Error:', err);
+      res.status(500).send('Database error');
+    }
+  });
+  
+
+
+
+
 
 // Start server
 app.listen(3000, () => {

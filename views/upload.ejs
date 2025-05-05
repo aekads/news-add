@@ -1,0 +1,63 @@
+<!-- views/upload.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Upload</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- Optional, if you want to link a CSS file -->
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Image</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+    
+
+      <div class="form-group">
+        <label for="image_title">Image Title</label>
+        <input type="text" name="image_title" placeholder="Image Title" />
+      </div>
+
+      <div class="form-group">
+        <label for="image_description">Description</label>
+        <input type="text" name="image_description" placeholder="Description" />
+      </div>
+
+      <!-- News Type Dropdown -->
+      <div class="form-group">
+        <label for="news_type">News Type</label>
+        <select name="news_type" required>
+          <option value="">Select News Type</option>
+          <option value="breaking_news">Breaking News</option>
+          <option value="aekads">AEKADS</option>
+          <option value="cricket_news">Cricket News</option>
+          <option value="gujarat_news">Gujarat News</option>
+          <option value="india_news">India News</option>
+          <option value="world_news">World News</option>
+          <option value="stock_market">Stock Market</option>
+          <option value="politics">Politics</option>
+          <option value="business">Business</option>
+        </select>
+      </div>
+
+      <!-- News Side Dropdown -->
+      <div class="form-group">
+        <label for="news_side">News Side</label>
+        <select name="news_side" required>
+          <option value="">Select News Side</option>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" name="image" accept="image/*" required />
+      </div>
+
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+
+</body>
+</html>
