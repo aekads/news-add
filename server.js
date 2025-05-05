@@ -77,7 +77,7 @@ app.get('/news/world/right', async (req, res) => {
          WHERE news_type = $1 AND news_side = $2 
          ORDER BY created_at DESC 
          LIMIT 12`,
-        ['World News', 'right']
+        ['world_news', 'right']
       );
   
       const allNews = result.rows;
@@ -103,7 +103,7 @@ app.get('/news/world/left', async (req, res) => {
          WHERE news_type = $1 AND news_side = $2 
          ORDER BY created_at DESC 
          LIMIT 12`,
-        ['World News', 'left']
+        ['world_news', 'left']
       );
   
       const allNews = result.rows;
