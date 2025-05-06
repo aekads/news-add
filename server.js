@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/Aeknews/world', (req, res) => {
+app.get('/Aeknews', (req, res) => {
     res.render('aeknews');
   });
 
