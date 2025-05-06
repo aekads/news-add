@@ -697,7 +697,7 @@ function truncateText(text, maxLength) {
     async function loadGrids() {
       try {
         // Load LEFT GRID
-        const leftRes = await fetch('https://news-add.onrender.com/news/gujarat/left');
+        const leftRes = await fetch('https://cms.aekads.com/news/gujarat/left');
         const leftData = await leftRes.json();
   
         const leftGrid1 = document.getElementById('leftGrid1');
@@ -709,7 +709,7 @@ function truncateText(text, maxLength) {
         populateGrid2(leftGrid2, leftData.part2, 'grid-item', 'grid-box', 'grid-image', 'grid-caption');
   
         // Load RIGHT GRID
-        const rightRes = await fetch('https://news-add.onrender.com/news/gujarat/right');
+        const rightRes = await fetch('https://cms.aekads.com/news/gujarat/right');
         const rightData = await rightRes.json();
   
         const rightGrid1 = document.getElementById('rightGridPart1');
