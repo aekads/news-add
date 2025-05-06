@@ -37,8 +37,13 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/Aeknews', (req, res) => {
+app.get('/Aeknews/world', (req, res) => {
     res.render('aeknews');
+  });
+
+
+  app.get('/Aeknews/gujarat', (req, res) => {
+    res.render('aeknews2');
   });
 // Enable CORS for all origins (you can restrict it if needed)
 app.use(cors());
@@ -126,6 +131,57 @@ app.get('/news/world/left', async (req, res) => {
   });
 
 
+  
+//    API: Get Latest 12 right-Side "gujarat News"
+app.get('/news/gujarat/right', async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT * FROM news 
+       WHERE news_type = $1 AND news_side = $2 
+       ORDER BY created_at DESC 
+       LIMIT 12`,
+      ['gujarat_news', 'right']
+    );
+
+    const allNews = result.rows;
+    const firstSix = allNews.slice(0, 4);
+    const nextSix = allNews.slice(4, 8); // Skips the first 6
+
+    res.json({
+      part1: firstSix,
+      part2: nextSix
+    });
+  } catch (err) {
+    console.error('DB Error:', err);
+    res.status(500).send('Database error');
+  }
+});
+
+
+//    API: Get Latest 12 Left-Side "gujarat News"
+app.get('/news/gujarat/left', async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT * FROM news 
+       WHERE news_type = $1 AND news_side = $2 
+       ORDER BY created_at DESC 
+       LIMIT 12`,
+      ['gujarat_news', 'left']
+    );
+
+    const allNews = result.rows;
+    const firstSix = allNews.slice(0, 6);
+    const nextSix = allNews.slice(6, 12); // Skips the first 6
+
+    res.json({
+      part1: firstSix,
+      part2: nextSix
+    });
+  } catch (err) {
+    console.error('DB Error:', err);
+    res.status(500).send('Database error');
+  }
+});
 
 
 // Start server
