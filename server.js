@@ -45,6 +45,10 @@ app.get('/Aeknews', (req, res) => {
   app.get('/Aeknews/gujarat', (req, res) => {
     res.render('aeknews2');
   });
+
+
+
+  
 // Enable CORS for all origins (you can restrict it if needed)
 app.use(cors());
 
